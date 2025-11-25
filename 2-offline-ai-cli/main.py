@@ -6,37 +6,72 @@
 # python3 -m venv venv
 # source venv/bin/activate
 # pip install -r requirements.txt
+# ollama pull llama3
 # python main.py
-
 
 import requests
 from config import MODEL_NAME, SYSTEM_PROMPT
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 
+# helper to detect whether this Ollama version supports /api/chat.
+def supports_chat_api() -> bool:
+    try:
+        r = requests.post(
+            "http://localhost:11434/api/chat",
+            json={"model": MODEL_NAME, "messages": []},
+            timeout=2,
+        )
+        # If the endpoint exists, it should NOT return 404
+        return r.status_code != 404
+    except Exception:
+        return False
+
+# pick endpoint + mode based on what the local Ollama server supports.
+if supports_chat_api():
+    OLLAMA_URL = "http://localhost:11434/api/chat"
+    USE_CHAT = True
+else:
+    OLLAMA_URL = "http://localhost:11434/api/generate"
+    USE_CHAT = False
+
 
 def call_ollama(user_message: str) -> str:
     """
     Send a message to the local Ollama server and return the assistant's reply.
+    This works with either /api/chat or /api/generate depending on USE_CHAT.
     """
-    payload = {
-        "model": MODEL_NAME,
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_message},
-        ],
-        "stream": False,
-    }
+
+    # build the payload differently depending on which API we’re using.
+    if USE_CHAT:
+        payload = {
+            "model": MODEL_NAME,
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_message},
+            ],
+            "stream": False,
+        }
+    else:
+        payload = {
+            "model": MODEL_NAME,
+            "prompt": f"{SYSTEM_PROMPT}\nUser: {user_message}\nAI:",
+            "stream": False,
+        }
 
     try:
         response = requests.post(OLLAMA_URL, json=payload, timeout=60)
         response.raise_for_status()
         data = response.json()
 
-        # Ollama's /api/chat typically returns:
-        # { "message": { "role": "assistant", "content": "..." }, ... }
-        message = data.get("message", {})
-        content = message.get("content", "").strip()
+        # parse the response based on the API style.
+        if USE_CHAT:
+            # /api/chat → { "message": { "role": "...", "content": "..." }, ... }
+            message = data.get("message", {})
+            content = message.get("content", "").strip()
+        else:
+            # /api/generate → { "response": "..." , ... }
+            content = data.get("response", "").strip()
 
         if not content:
             return "[No response from model]"
