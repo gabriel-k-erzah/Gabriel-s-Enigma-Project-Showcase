@@ -43,18 +43,40 @@ What it shows:
 
 ---
 
-### 3. Quantum Exploration (Shor’s Algorithm Foundations)
+### 3. Quantum Exploration — Building an ASCII Quantum Debugger
 Folder: /3-quantum-exploration
 
-This section covers my early steps into quantum programming. I’m starting with the basics and learning the concepts behind Shor’s algorithm. My focus is understanding qubits, gates, circuits, and the logic involved before trying anything more advanced.
+This is the part of the repo I'm most excited about.
 
-What it shows:
-- Interest in new and challenging areas
-- Long-term curiosity
-- Learning beyond my current skill set
-- Building a strong foundation first
+Most people learning quantum computing start with Jupyter notebooks or textbook diagrams.  
+I decided to take a different approach:
 
----
+I’m building a **real-time ASCII Quantum Debugger** — a terminal-based tool that visualises qubit behaviour, Bloch sphere movement, superposition, and measurement collapse *live* using nothing but Python and character graphics.
+
+Think of it like a “quantum game engine” for the terminal.
+
+What it does so far:
+- draws a real-time ASCII Bloch sphere  
+- animates the qubit's state vector  
+- shows collapse with a flickering arrow (0 ↔ 1)  
+- shows expectation value stabilising over time  
+- resizes dynamically with the terminal  
+- simulates measurement statistics  
+
+Why I built it:
+- I wanted to actually **see** quantum behaviour, not just read it
+- I wanted to build tools, not only run examples
+- I enjoy turning abstract concepts into interactive visual systems
+
+I wanted to show this because:
+- it's original (as far as I know, I could find anything)  
+- it mixes physics + rendering + simulation  
+- it’s educational and practical  
+- it shows systems-level thinking  
+- and it’s the foundation for a full quantum debugger I'm planning  
+
+This project is a long-term build, and the current version is just the start.  
+But it’s already taught me more about quantum states than any textbook ever did.
 
 ## Purpose of This Repository
 
