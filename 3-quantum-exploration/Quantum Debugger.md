@@ -6,6 +6,8 @@ This is not just a side project. It is intended to become a **full debugging env
 
 The Quantum Debugger is a sister project to the ASCII Bloch Sphere visualiser.
 
+Disclaimer, I am NOT a mathematician, however I do understand how to "read maths from code" I am planing to improve my maths however that will take time.
+
 ---
 
 ## 🎯 Goal of the Quantum Debugger
