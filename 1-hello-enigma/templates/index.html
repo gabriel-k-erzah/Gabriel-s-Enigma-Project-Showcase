@@ -1,10 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <p class="hero-tag">Hey Enigma 👋</p>
+            <h1>Hello, I’m Gabriel.</h1>
+            <p class="hero-body">
+                I’m a Black British Gen Z developer from Teesside, now studying Computer Science at Newcastle.
+                I love building things that are fast, useful, and actually respect the people using them.
+            </p>
+            <p class="hero-body">
+                This page is a small intro to who I am, what drives me, and a few projects that got me
+                excited enough to apply for a placement with you.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section about">
+    <div class="container">
+        <h2>My story in a few lines</h2>
+        <p>
+            I grew up in the North-East in a mix of UK and Zambian culture, which taught me early on that
+            tech should open doors, not close them. I’ve worked part-time in fast-paced kitchens and front-line
+            customer roles, so I care a lot about real people, not just clean code.
+        </p>
+        <p>
+            Right now I’m focused on:
+        </p>
+        <ul>
+            <li>Building <strong>reliable tools</strong> that still work when things break (like offline AI).</li>
+            <li>Learning how <strong>systems behave under pressure</strong> – from networks to people.</li>
+            <li>Growing as a developer in an environment where I can ask questions, ship things, and make an impact.</li>
+        </ul>
+    </div>
+</section>
+
+<section id="projects" class="section projects">
+    <div class="container">
+        <div class="section-header">
+            <h2>Some things I’ve been building</h2>
+            <p class="section-subtitle">
+                Here are three projects that show how I think, learn, and experiment.
+            </p>
+        </div>
+
+        <div class="project-grid">
+            {% for project in projects %}
+            <article class="project-card">
+                <h3>{{ project.name }}</h3>
+                <p class="project-tagline">{{ project.tagline }}</p>
+                <p class="project-description">{{ project.description }}</p>
+                {% if project.link and project.link != "#" %}
+                <a href="https://github.com/Gabriel-k-erzah/Gabriel-s-Enigma-Project-Showcase" class="project-link" target="_blank" rel="noreferrer">
+                    View this project →
+                </a>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+
+        <div class="projects-footer">
+            <a href="https://github.com/USERNAME/Gabriel-s-Enigma-Project-Showcase"
+               class="primary-button"
+               target="_blank"
+               rel="noreferrer">
+                See all projects on GitHub
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
