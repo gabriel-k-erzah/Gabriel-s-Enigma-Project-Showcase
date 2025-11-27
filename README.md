@@ -48,6 +48,8 @@ Folder: /3-quantum-exploration
 
 This is the part of the repo I'm most excited about.
 
+the main python script is bloch_flicker_ascii.py
+
 Most people learning quantum computing start with Jupyter notebooks or textbook diagrams.  
 I decided to take a different approach:
 
